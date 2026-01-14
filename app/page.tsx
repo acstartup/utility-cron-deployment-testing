@@ -25,7 +25,7 @@ export default function Home() {
   }
 
   return (
-    <div className="relative top-20 left-90">
+    <div className="relative top-20 pl-75 min-w-screen min-h-screen">
       <h1 className="text-black">Add Utility</h1>
       <div className="flex flex-col relative gap-3 right-15 pt-3">
         <select 
