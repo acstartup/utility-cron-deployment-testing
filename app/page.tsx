@@ -35,8 +35,9 @@ export default function Home() {
     setDescription("");
   }
 
-  const handleDelete = () => {
-
+  const handleDelete = (indexToDelete: number) => {
+    {/* assign each bill a random value */}
+    showBill(bills.filter((_, index) => index !== indexToDelete))
   }
 
   return (
@@ -96,7 +97,7 @@ export default function Home() {
         <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-30 top-10 w-81">
           <div className="flex justify-between">
             <span className="font-bold text-sm">Your Bill:</span>
-            <a onClick={handleDelete} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a>
+            <a onClick={() => handleDelete(index)} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a> {/* gives an index value to handleDelete and delete searches and deletes */}
           </div>
           <div className="flex gap-8">
             <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
