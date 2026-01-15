@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { saveBill, bill } from '@/lib/deploy';
+import { saveBill, bill } from '@/lib/back';
 
 export default function Home() {
   const [bills, showBill] = useState<bill[]>([]);  
