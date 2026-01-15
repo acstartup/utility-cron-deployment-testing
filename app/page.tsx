@@ -83,7 +83,7 @@ export default function Home() {
       {/* 1. return for computed info into a UI computed bill but not yet deployed */}
       {bills.map((bill, index) => (
       <div className="">
-        <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-36 top-10 w-81">
+        <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-30 top-10 w-81">
           <div className="font-bold text-sm">Your Bill:</div>
           <div className="flex gap-8">
             <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
