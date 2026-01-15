@@ -27,6 +27,16 @@ export default function Home() {
     }
     showBill([...bills, newBill]);
     saveBill(newBill);
+
+    {/* clear bill spots */}
+    setType("");
+    setRecurrence("");
+    setPrice("");
+    setDescription("");
+  }
+
+  const handleDelete = () => {
+
   }
 
   return (
@@ -73,7 +83,7 @@ export default function Home() {
         ></input>
         <div className="grid justify-start pl-12">
           <button
-            onClick={handleBill} className="border border-black outline-black text-black w-20 h-6 rounded-md hover:bg-gray-100 text-sm hover: gr"
+            onClick={handleBill} className="border border-black outline-black text-black w-20 h-6 rounded-md hover:bg-gray-100 text-sm hover:outline-[0.5]"
           >
             Compute
           </button>
@@ -84,7 +94,10 @@ export default function Home() {
       {bills.map((bill, index) => (
       <div className="">
         <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-30 top-10 w-81">
-          <div className="font-bold text-sm">Your Bill:</div>
+          <div className="flex justify-between">
+            <span className="font-bold text-sm">Your Bill:</span>
+            <a onClick={handleDelete} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a>
+          </div>
           <div className="flex gap-8">
             <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
             <span className="text-xs"><span className="font-bold">Recurrence:</span> {bill.recurrence}</span>
