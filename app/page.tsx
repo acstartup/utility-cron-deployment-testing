@@ -130,7 +130,7 @@ export default function Home() {
       <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-30 top-10 w-max h-max">
         <div className="flex justify-between">
           <span className="font-bold text-sm">{bill.address}</span>
-          <span className="text-xs font-semibold relative right-20 top-0.5 pl-5">{bill.date}</span>
+          <span className="text-xs font-semibold relative right-20 top-0.5 pl-22">Start Date: {bill.date}</span>
           <a onClick={() => handleDelete(index)} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a> {/* gives an index value to handleDelete and delete searches and deletes */}
         </div>
         <div className="flex flex-row gap-4">
