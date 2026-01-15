@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { saveBill, bill } from '@/lib/deploy';
 
 export default function Home() {
@@ -13,6 +13,11 @@ export default function Home() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+
+  useEffect(() => {
+    const savedBills = JSON.parse(localStorage.getItem('bills') || '[]');
+    showBill(savedBills);
+  }, []);
 
   {/* function to handle compute w/ save and note and deploy */}
   const handleBill = () => {

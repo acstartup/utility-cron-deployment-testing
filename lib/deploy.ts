@@ -12,7 +12,7 @@ export interface bill {
 export async function saveBill (newBill: bill) { {/* newBill is a type of bill, bills = array, taking the bills from array then pushing newBill into bills array, then JSON.strinigfy newBill into bills array into localStorage */}
     let bills = JSON.parse(localStorage.getItem('bills') || '[]');
     bills.push(newBill);
-    localStorage.setItem('bills', JSON.stringify(newBill));
+    localStorage.setItem('bills', JSON.stringify(bills));
     alert("Bill Saved");
 }
 
