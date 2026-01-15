@@ -87,7 +87,6 @@ export default function Home() {
           onChange={(e) => setRecurrence(e.target.value)}
           className="border border-black text-black w-50 h-6 px-1 rounded-md bg-gray-100 text-sm">
           <option value="">Select utility recurrence</option>
-          <option value="Secondly">Secondly</option>
           <option value="Minutely">Minutely</option>
           <option value="Daily">Daily</option>
           <option value="Monthly">Monthly</option>
@@ -145,5 +144,20 @@ export default function Home() {
 
       {/* 2. return for actual deployed bill from deploy.ts data cron taking bill info into a deployment */}
     </div> 
+
+    <div>
+      <div>
+        <span>Address</span>
+        <span>Deployment Date</span>
+      </div>
+      <div>
+        <span>Type</span>
+        <span>Recurrence</span>
+        <span>Price</span>
+      </div>
+      <div>
+        <span><span>Description:</span>{bill.type} bill for {bill.deployment}</span>
+      </div>
+    </div>
   )
 }
