@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Utility Cron Deployment (testing)
 
-## Getting Started
+A Next.js web application for managing utility bills with automated Vercel cron job deployments and Supabase database integration.
 
-First, run the development server:
+## Features
+- Add and manage utility bills (Rent, Water, Electricity)
+- Set bill recurrence (Minutely, Daily, Monthly)
+- Supabase database for storage
+- Vercel cron job for automated deployment checks
+- Bill limit of 3 active bills at a time
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to Run
+1. Run `npm install` to install dependencies
+2. Create `.env.local` with your Supabase credentials:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+   ```
+3. Run `npm run dev` to start development server
+4. Open http://localhost:3000 to view in browser
+5. Add bills using the form on the left side
+6. View deployments on the right side when cron triggers
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tools/Languages
+- **TypeScript** - 65%
+- **React/Next.js** - 25%
+- **CSS (Tailwind)** - 10%
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What I Learned
+- Configuring Vercel cron jobs with `vercel.json` and schedule syntax (`* * * * *`)
+- Codes for arrays `.push` and `.length`
+- General structuring: `page.tsx` for all client-side `lib` folder for server-side
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+### npm run dev
+Starts the Next.js development server with hot reload.
+Open http://localhost:3000 to view in browser.
 
-To learn more about Next.js, take a look at the following resources:
+### npm run build
+Creates an optimized production build.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### npm run start
+Runs the production build locally.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### vercel --prod
+Deploys to Vercel production (enables cron jobs).
