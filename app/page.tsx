@@ -126,7 +126,7 @@ export default function Home() {
 
       {/* 1. return for computed info into a UI computed bill but not yet deployed */}
       {bills.map((bill, index) => (
-      <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-30 top-10 w-max h-max">
+      <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-26 top-10 w-max h-max">
         <div className="flex justify-between">
           <span className="font-bold text-sm">{bill.address}</span>
           <span className="text-xs font-semibold relative right-20 top-0.5 pl-22">Start Date: {bill.date}</span>
