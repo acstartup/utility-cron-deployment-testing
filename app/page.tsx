@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { saveBill, bill } from '@/lib/back';
+import { saveBill, getBills, deleteBill, bill } from '@/lib/back';
 
 export default function Home() {
   const [bills, showBill] = useState<bill[]>([]);  
@@ -15,8 +15,7 @@ export default function Home() {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
   useEffect(() => {
-    const savedBills = JSON.parse(localStorage.getItem('bills') || '[]');
-    showBill(savedBills);
+    getBills().then(showBill);
   }, []);
 
   {/* function to handle compute w/ save and note and deploy */}
@@ -52,10 +51,10 @@ export default function Home() {
     setDate("");
   };
 
-  const handleDelete = (indexToDelete: number) => {
-    {/* assign each bill a random value */}
-    showBill(bills.filter((_, index) => index !== indexToDelete)) 
-  }; {/* deletes given index */}
+  const handleDelete = async (id: string) => {
+    await deleteBill(id);
+    showBill(bills.filter(bill => bill.id !== id));
+  };
 
   return (
     <div className="relative pt-20 pl-75 min-w-screen min-h-screen">
@@ -131,7 +130,7 @@ export default function Home() {
         <div className="flex justify-between">
           <span className="font-bold text-sm">{bill.address}</span>
           <span className="text-xs font-semibold relative right-20 top-0.5 pl-22">Start Date: {bill.date}</span>
-          <a onClick={() => handleDelete(index)} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a> {/* gives an index value to handleDelete and delete searches and deletes */}
+          <a onClick={() => handleDelete(bill.id!)} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a> {/* gives an index value to handleDelete and delete searches and deletes */}
         </div>
         <div className="flex flex-row gap-4">
           <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
