@@ -16,8 +16,15 @@ export async function GET(request: Request) {
     const startDate = new Date(bill.date);
     
     if (shouldDeploy(startDate, bill.recurrence, today)) {
-      // Do something (send email, log, etc.)
-      console.log(`Deploying bill: ${bill.address} - $${bill.price}`);
+      // Save deployment to database
+      await supabase.from('deployments').insert({
+        bill_id: bill.id,
+        address: bill.address,
+        type: bill.type,
+        recurrence: bill.recurrence,
+        price: bill.price,
+        description: bill.description,
+      });
       deployedBills.push(bill);
     }
   }

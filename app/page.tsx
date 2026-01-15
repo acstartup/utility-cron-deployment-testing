@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { saveBill, getBills, deleteBill, bill } from '@/lib/back';
+import { saveBill, getBills, deleteBill, getDeployments, bill, deployment } from '@/lib/back';
 
 export default function Home() {
-  const [bills, showBill] = useState<bill[]>([]);  
+  const [bills, showBill] = useState<bill[]>([]);
+  const [deployments, setDeployments] = useState<deployment[]>([]);
 
   {/* default lines */}
   const [address, setAddress] = useState('');
@@ -16,6 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     getBills().then(showBill);
+    getDeployments().then(setDeployments);
   }, []);
 
   {/* function to handle compute w/ save and note and deploy */}
@@ -57,7 +59,9 @@ export default function Home() {
   };
 
   return (
-    <div className="relative pt-20 pl-75 min-w-screen min-h-screen">
+    <div className="flex min-h-screen min-w-screen">
+      {/* Left side - Add Utility & Bills */}
+      <div className="relative pt-20 pl-120">
       <h1 className="text-black font-bold">Add Utility</h1>
       <div className="flex flex-col relative gap-3 right-15 pt-3">
         {/* add address */}
@@ -123,40 +127,45 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 1. return for computed info into a UI computed bill but not yet deployed */}
+      {/* Bills list */}
       {bills.map((bill, index) => (
-      <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-26 top-10 w-max h-max">
-        <div className="flex justify-between">
-          <span className="font-bold text-sm">{bill.address}</span>
-          <span className="text-xs font-semibold relative right-20 top-0.5 pl-22">Start Date: {bill.date}</span>
-          <a onClick={() => handleDelete(bill.id!)} className="relative text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5]">x</a> {/* gives an index value to handleDelete and delete searches and deletes */}
+        <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-26 top-10 w-max h-max">
+          <div className="flex justify-between gap-4">
+            <span className="font-bold text-sm">{bill.address}</span>
+            <span className="text-xs font-semibold top-0.5">Start Date: {bill.date}</span>
+            <a onClick={() => handleDelete(bill.id!)} className="text-center font-bold border leading-none w-4.5 h-4.5 text-sm rounded-md hover:outline-[0.5] cursor-pointer">x</a>
+          </div>
+          <div className="flex flex-row gap-4">
+            <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
+            <span className="text-xs"><span className="font-bold">Recurrence:</span> {bill.recurrence}</span>
+            <span className="text-xs"><span className="font-bold">Price:</span> ${bill.price}</span>
+          </div>
+          <div className="grid pt-0.5">
+            <span className="text-xs"><span className="font-bold">Description:</span> {bill.description}</span>
+          </div>
         </div>
-        <div className="flex flex-row gap-4">
-          <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
-          <span className="text-xs"><span className="font-bold">Recurrence:</span> {bill.recurrence}</span>
-          <span className="text-xs"><span className="font-bold">Price:</span> ${bill.price}</span>
-        </div>
-        <div className="grid pt-0.5">
-          <span className="text-xs"><span className="font-bold">Description:</span> {bill.description}</span>
-        </div>
-      </div>  
       ))}
-
-      {/* 2. return for actual deployed bill from deploy.ts data cron taking bill info into a deployment */}
-    </div> 
-
-    <div>
-      <div>
-        <span>Address</span>
-        <span>Deployment Date</span>
       </div>
-      <div>
-        <span>Type</span>
-        <span>Recurrence</span>
-        <span>Price</span>
-      </div>
-      <div>
-        <span><span>Description:</span>{bill.type} bill for {bill.deployment}</span>
+
+      {/* Right side - Deployments */}
+      <div className="w-1/2 relative flex flex-col pl-30 pt-19">
+        <h2 className="text-black font-bold mb-2">Deployments</h2>
+        {deployments.map((dep) => (
+          <div key={dep.id} className="border relative bg-green-50 mb-2 border-green-600 shadow-md items-center rounded-lg text-black text-md px-2 py-1 w-max h-max -ml-23">
+            <div className="flex justify-between gap-4">
+              <span className="font-bold text-sm">{dep.address}</span>
+              <span className="text-xs font-semibold top-0.5">Deployed: {new Date(dep.deployed_at).toLocaleString()}</span>
+            </div>
+            <div className="flex flex-row gap-4">
+              <span className="text-xs"><span className="font-bold">Type:</span> {dep.type}</span>
+              <span className="text-xs"><span className="font-bold">Recurrence:</span> {dep.recurrence}</span>
+              <span className="text-xs"><span className="font-bold">Price:</span> ${dep.price}</span>
+            </div>
+            <div className="grid pt-0.5">
+              <span className="text-xs"><span className="font-bold">Description:</span> {dep.description}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

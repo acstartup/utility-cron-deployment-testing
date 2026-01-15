@@ -28,4 +28,19 @@ export async function deleteBill(id: string) {
     if (error) throw error;
 }
 
-/* function for calling vercel daily cron and alerting from that */
+export interface deployment {
+    id: string;
+    bill_id: string;
+    address: string;
+    type: string;
+    recurrence: string;
+    price: number;
+    description: string;
+    deployed_at: string;
+}
+
+export async function getDeployments(): Promise<deployment[]> {
+    const { data, error } = await supabase.from('deployments').select('*').order('deployed_at', { ascending: false });
+    if (error) throw error;
+    return data || [];
+}
