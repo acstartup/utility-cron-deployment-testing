@@ -14,6 +14,11 @@ export default function Home() {
 
   /* function to handle compute w/ save and note and deploy */
   const handleBill = () => {
+    if (!type || !recurrence || !price || !description) {
+      alert("All bill information inputs must be filled to add a bill.");
+      return;
+    }
+
     const newBill = {
       type: type,
       recurrence: recurrence,
@@ -25,8 +30,8 @@ export default function Home() {
   }
 
   return (
-    <div className="relative top-20 pl-75 min-w-screen min-h-screen">
-      <h1 className="text-black">Add Utility</h1>
+    <div className="relative pt-20 pl-75 min-w-screen min-h-screen">
+      <h1 className="text-black font-bold">Add Utility</h1>
       <div className="flex flex-col relative gap-3 right-15 pt-3">
         <select 
           id="type" 
@@ -35,9 +40,9 @@ export default function Home() {
           className="border border-black text-black w-50 h-6 px-1 rounded-md bg-gray-100 text-sm"> 
           {/* 1. utility type (dropdown) 2. recurrance (dropdown) 3. price (input) 4. description (input) */}
           <option value="">Select utility type</option>
-          <option value="rent">Rent</option>
-          <option value="water">Water</option>
-          <option value="electricity">Electricity</option>
+          <option value="Rent">Rent</option>
+          <option value="Water">Water</option>
+          <option value="Electricity">Electricity</option>
         </select>
         <select 
           id="recurrence" 
@@ -45,13 +50,14 @@ export default function Home() {
           onChange={(e) => setRecurrence(e.target.value)}
           className="border border-black text-black w-50 h-6 px-1 rounded-md bg-gray-100 text-sm">
           <option value="">Select utility recurrence</option>
-          <option value="secondly">Secondly</option>
-          <option value="minutely">Minutely</option>
-          <option value="daily">Daily</option>
-          <option value="monthly">Monthly</option>
+          <option value="Secondly">Secondly</option>
+          <option value="Minutely">Minutely</option>
+          <option value="Daily">Daily</option>
+          <option value="Monthly">Monthly</option>
         </select>
         <input
           id="price"
+          type="number"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className="border border-black outline-black text-black w-50 h-6 px-1 rounded-md bg-gray-100 text-sm"
@@ -59,6 +65,7 @@ export default function Home() {
         ></input>
         <input
           id="description"
+          type="text"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="border border-black outline-black text-black w-50 h-6 px-1 rounded-md bg-gray-100 text-sm"
@@ -66,7 +73,7 @@ export default function Home() {
         ></input>
         <div className="grid justify-start pl-12">
           <button
-            onClick={handleBill} className="border border-black text-black w-20 h-6 rounded-md hover:bg-gray-100 text-sm hover: gr"
+            onClick={handleBill} className="border border-black outline-black text-black w-20 h-6 rounded-md hover:bg-gray-100 text-sm hover: gr"
           >
             Compute
           </button>
@@ -75,21 +82,22 @@ export default function Home() {
 
       {/* 1. return for computed info into a UI computed bill but not yet deployed */}
       {bills.map((bill, index) => (
-        <div key={index} className="relative border bg-slate-50 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-36 top-110 w-100 w-min-w-screen h-min-h-screen">
+      <div className="">
+        <div key={index} className="relative border bg-slate-50 mb-2 border-black shadow-md rounded-lg text-black text-md px-2 py-1 right-36 top-10 w-81">
           <div className="font-bold text-sm">Your Bill:</div>
-          <div className="flex gap-18 text-sm">
-            <span>Type: {bill.type}</span>
-            <span>Recurrence: {bill.recurrence}</span>
-            <span>Price: ${bill.price}</span>
+          <div className="flex gap-8">
+            <span className="text-xs"><span className="font-bold">Type:</span> {bill.type}</span>
+            <span className="text-xs"><span className="font-bold">Recurrence:</span> {bill.recurrence}</span>
+            <span className="text-xs"><span className="font-bold">Price:</span> ${bill.price}</span>
           </div>
-          <div className="text-sm">
-            Description: {bill.description}
+          <div className="grid pt-0.5">
+            <span className="text-xs"><span className="font-bold">Description:</span> {bill.description}</span>
           </div>
         </div>  
+      </div>
       ))}
 
       {/* 2. return for actual deployed bill from deploy.ts data cron taking bill info into a deployment */}
     </div> 
-
   )
 }
